@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: cep-quest
+  labels:
+    app: cep
+    k8s-app: cep-quest
+    env: test
+spec:
+  ports:
+  - port: 5001
+    protocol: TCP
+    targetPort: 5001
+  selector:
+    k8s-app: cep-quest
+  sessionAffinity: None
+  type: ClusterIP

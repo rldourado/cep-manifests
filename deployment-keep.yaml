@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cep-keep
+  labels:
+    app: cep
+    k8s-app: cep-keep
+    env: test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: cep-keep
+  template:
+    metadata:
+      annotations:
+      labels:
+        k8s-app: cep-keep
+    spec:
+      containers:
+        - name: cep-keep
+          image: cicerow/cep_python_flask2:keep-v0-0000000
+          imagePullPolicy: "Always"
+          resources:
+            requests:
+              cpu: 250m
+              memory: 256Mi
+          env:
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.name
+          envFrom:
+            - configMapRef:
+                name: cep
+          ports:
+            - name: flask
+              containerPort: 5002

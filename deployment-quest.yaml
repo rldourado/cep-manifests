@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cep-quest
+  labels:
+    app: cep
+    k8s-app: cep-quest
+    env: test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: cep-quest
+  template:
+    metadata:
+      annotations:
+      labels:
+        k8s-app: cep-quest
+    spec:
+      containers:
+        - name: cep-quest
+          image: cicerow/cep_python_flask2:quest-v0-0000000
+          imagePullPolicy: "Always"
+          resources:
+            requests:
+              cpu: 250m
+              memory: 256Mi
+          env:
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.name
+          envFrom:
+            - configMapRef:
+                name: cep
+          ports:
+            - name: flask
+              containerPort: 5001

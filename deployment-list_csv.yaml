@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cep-listcsv
+  labels:
+    app: cep
+    k8s-app: cep-listcsv
+    env: test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: cep-listcsv
+  template:
+    metadata:
+      annotations:
+      labels:
+        k8s-app: cep-listcsv
+    spec:
+      containers:
+        - name: cep-listcsv
+          image: cicerow/cep_python_flask2:list_csv-v0-0000000
+          imagePullPolicy: "Always"
+          resources:
+            requests:
+              cpu: 250m
+              memory: 256Mi
+          env:
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.name
+          envFrom:
+            - configMapRef:
+                name: cep
+          ports:
+            - name: flask
+              containerPort: 5003
