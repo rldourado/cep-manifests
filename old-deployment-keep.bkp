@@ -1,25 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: cep-quest
+  name: cep-keep
   labels:
     app: cep
-    k8s-app: cep-quest
+    k8s-app: cep-keep
     env: test
 spec:
   replicas: 1
   selector:
     matchLabels:
-      k8s-app: cep-quest
+      k8s-app: cep-keep
   template:
     metadata:
       annotations:
       labels:
-        k8s-app: cep-quest
+        k8s-app: cep-keep
     spec:
       containers:
-        - name: cep-quest
-          image: rldourado/poc-actions02:quest-v2-529ddb7
+        - name: cep-keep
+          image: cicerow/cep_python_flask2:keep-v0-0000000
           imagePullPolicy: "Always"
           resources:
             requests:
@@ -36,4 +36,4 @@ spec:
                 name: cep
           ports:
             - name: flask
-              containerPort: 5001
+              containerPort: 5002

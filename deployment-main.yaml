@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: cep-main
-          image: cicerow/cep_python_flask2:main-v0-0000000
+          image: rldourado/poc-actions02:main-v2-529ddb7
           imagePullPolicy: "Always"
           resources:
             requests:

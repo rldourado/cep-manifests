@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: cep-quest
-          image: rldourado/poc-actions02:quest-v2-529ddb7
+          image: cicerow/cep_python_flask2:quest-v0-0000000
           imagePullPolicy: "Always"
           resources:
             requests:
